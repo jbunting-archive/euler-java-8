@@ -1,8 +1,20 @@
 package com.potetm;
 
+import java.util.stream.IntStream;
+
 public class Euler {
+    private static IntStream findMultiples(int of, int limit) {
+        return IntStream
+                .range(1, limit)
+                .filter((i) -> i % of == 0);
+    }
+
     public static long problem1() {
-        return Long.MIN_VALUE;
+        return IntStream
+                .concat(findMultiples(3, 1000),
+                        findMultiples(5, 1000))
+                .distinct()
+                .sum();
     }
 
     public static long problem2() {
