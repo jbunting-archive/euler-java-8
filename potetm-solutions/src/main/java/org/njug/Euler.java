@@ -1,4 +1,4 @@
-package com.potetm;
+package org.njug;
 
 import com.google.common.math.LongMath;
 

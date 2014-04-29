@@ -1,4 +1,4 @@
-package com.potetm;
+package org.njug;
 
 import org.junit.Test;
 
