@@ -1,6 +1,10 @@
 package com.potetm;
 
+import com.google.common.math.LongMath;
+
+import java.util.function.LongSupplier;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public class Euler {
     private static IntStream findMultiples(int of, int limit) {
@@ -17,8 +21,26 @@ public class Euler {
                 .sum();
     }
 
+    public static class FibSupplier implements LongSupplier {
+        private long penultimate = 0;
+        private long ultimate    = 1;
+
+        @Override
+        public long getAsLong() {
+            long result = LongMath.checkedAdd(penultimate, ultimate);
+            penultimate = ultimate;
+            ultimate = result;
+            return result;
+        }
+    }
+
     public static long problem2() {
-        return Long.MIN_VALUE;
+        return LongStream
+                .generate(new FibSupplier())
+                .limit(50) // Don't go too big. Overflow is a real thing.
+                .filter(x -> x <= 4_000_000)
+                .filter(x -> x % 2 == 0)
+                .sum();
     }
 
     public static long problem3() {
